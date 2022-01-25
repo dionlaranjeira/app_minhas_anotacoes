@@ -122,8 +122,12 @@ class _HomeState extends State<Home> {
       _anotacoes = anotacoesTemp;
     });
     anotacoesTemp = [];
-
  }
+
+  _removerAnotacao(int id) async{
+    await _db.removerAnotacao(id);
+    _recuperarAnotacoes();
+  }
 
  @override
   void initState() {
@@ -160,7 +164,9 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: (){},
+                          onTap: (){
+                            _removerAnotacao(item.id!);
+                          },
                           child: Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                             child: Icon(Icons.delete, color: Colors.red     ),
                           ),
