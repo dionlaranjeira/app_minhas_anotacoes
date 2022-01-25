@@ -1,7 +1,8 @@
 import 'package:app_minhas_anotacoes/helper/AnotacaoHelper.dart';
 import 'package:app_minhas_anotacoes/model/Anotacao.dart';
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -79,6 +80,17 @@ class _HomeState extends State<Home> {
 
   }
 
+ _formatarData(String data){
+   initializeDateFormatting('pt_BR');
+
+   // var fomatador = DateFormat("dd/MM/yyyy");
+   var fomatador = DateFormat.yMMMMd("pt_BR");
+   DateTime dataConvertida = DateTime.parse(data);
+   String dataFomatada = fomatador.format(dataConvertida);
+
+   return dataFomatada;
+ }
+
  _recuperarAnotacoes() async {
     List anotacoesRecuperadas = await _db.recuperarAnotacoes();
 
@@ -93,7 +105,6 @@ class _HomeState extends State<Home> {
     });
     anotacoesTemp = [];
 
-    // print("Lista anotacoes:" + anotacoesRecuperadas.toString());
  }
 
  @override
@@ -118,6 +129,7 @@ class _HomeState extends State<Home> {
                 return Card(
                   child: ListTile(
                     title: Text(item.titulo!),
+                    subtitle: Text(_formatarData(item.data!)),
                   ),
                 );
               }))
