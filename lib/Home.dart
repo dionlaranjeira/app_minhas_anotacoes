@@ -13,8 +13,8 @@ class _HomeState extends State<Home> {
 
   TextEditingController _tituloController = TextEditingController();
   TextEditingController _descricaoController = TextEditingController();
-
   var _db = AnotacaoHelper();
+  List<Anotacao> _anotacoes = [];
 
   _exibirTelaCadastro(){
     showDialog(
@@ -70,20 +70,59 @@ class _HomeState extends State<Home> {
     Anotacao anotacao = Anotacao(titulo, descricao, DateTime.now().toString());
 
     int resultado = await _db.salvarAnotacao(anotacao);
-    print("Resultado: "+ resultado.toString());
+    // print("Resultado: "+ resultado.toString());
 
     _tituloController.clear();
     _descricaoController.clear();
 
+    _recuperarAnotacoes();
+
   }
-  
+
+ _recuperarAnotacoes() async {
+    List anotacoesRecuperadas = await _db.recuperarAnotacoes();
+
+    List<Anotacao> anotacoesTemp = [];
+    for(var item in anotacoesRecuperadas){
+        Anotacao anotacao = Anotacao.fromMap(item);
+        anotacoesTemp.add(anotacao);
+    }
+
+    setState(() {
+      _anotacoes = anotacoesTemp;
+    });
+    anotacoesTemp = [];
+
+    // print("Lista anotacoes:" + anotacoesRecuperadas.toString());
+ }
+
+ @override
+  void initState() {
+    super.initState();
+    _recuperarAnotacoes();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Minhas anotações"),
       ),
-      body: Container(),
+      body: Column(
+        children: [
+          Expanded(child: ListView.builder(
+              itemCount: _anotacoes.length,
+              itemBuilder: (context,index){
+                final item = _anotacoes[index];
+
+                return Card(
+                  child: ListTile(
+                    title: Text(item.titulo!),
+                  ),
+                );
+              }))
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           _exibirTelaCadastro();
