@@ -17,7 +17,7 @@ Tabela de conteúdos
 
 ## 💻 Sobre o projeto
 
-Aplicativo minhas anotações é um projeto desenvolvido em Flutter/Dart que tem como objetivo exemplificar o uso do banco de dados <span> <a href="https://pub.dev/packages/sqflite"> SQLITE </a> </span>. Nesse aplicativo é feito um CRUD (Create, Read, Update, Delete) em anotações do usuário e os dados são exibidos no app utilizando um componente de Card.
+Aplicativo "Minhas Anotações" é um projeto desenvolvido em Flutter/Dart que tem como objetivo exemplificar o uso do banco de dados <span> <a href="https://pub.dev/packages/sqflite"> SQLITE </a> </span>. Nesse aplicativo é feito um CRUD (Create, Read, Update, Delete) em anotações do usuário. Os dados são exibidos no app utilizando um componente Card.
 
 
 ---
