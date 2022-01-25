@@ -72,11 +72,11 @@ class _HomeState extends State<Home> {
     int resultado = await _db.salvarAnotacao(anotacao);
     print("Resultado: "+ resultado.toString());
 
-    _tituloController.text = "";
-    _descricaoController.text = "";
+    _tituloController.clear();
+    _descricaoController.clear();
 
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
